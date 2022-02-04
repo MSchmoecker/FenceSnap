@@ -39,5 +39,8 @@ Now you can run `deploy.sh`, this will copy the mod to your BepInEx plugin folde
 - Discord: Margmas#9562
 
 ## Changelog
+0.1.1
+- Added support for OdinArchitect fences and sharpstakes. Only active when OdinArchitect is installed
+
 0.1.0
 - Release

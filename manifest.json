@@ -1,7 +1,7 @@
 {
 	"name": "FenceSnap",
 	"description": "Adds snappoints to fences and sharp stakes",
-	"version_number": "0.1.0",
+	"version_number": "0.1.1",
 	"website_url": "https://github.com/MSchmoecker/FenceSnap",
 	"dependencies": [
 		"denikson-BepInExPack_Valheim-5.4.1700"
