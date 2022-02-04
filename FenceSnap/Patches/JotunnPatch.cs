@@ -11,7 +11,7 @@ namespace FenceSnap.Patches {
                 return;
             }
 
-            if (Chainloader.PluginInfos.ContainsKey("com.raelaziel.OdinArchitect")) {
+            if (Plugin.patchOdinArchitect.Value && Chainloader.PluginInfos.ContainsKey("com.raelaziel.OdinArchitect")) {
                 AddOdinArchitect();
             }
         }
