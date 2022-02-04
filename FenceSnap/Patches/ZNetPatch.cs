@@ -5,23 +5,18 @@ namespace FenceSnap.Patches {
     [HarmonyPatch]
     public class ZNetPatch {
         [HarmonyPatch(typeof(ZNetScene), nameof(ZNetScene.Awake)), HarmonyPostfix]
-        public static void ZNetAwake(ZNetScene __instance) {
-            GameObject woodFence = __instance.m_namedPrefabs["wood_fence".GetStableHashCode()];
-            CreateSnappoint(new Vector3(1f, 0f, 0), woodFence.transform);
-            CreateSnappoint(new Vector3(-1f, 0f, 0), woodFence.transform);
-            CreateSnappoint(new Vector3(1f, .5f, 0), woodFence.transform);
-            CreateSnappoint(new Vector3(-1f, .5f, 0), woodFence.transform);
+        public static void AfterZNetSceneAwake() {
+            SnappointHelper.AddSnappoints("wood_fence", new[] {
+                new Vector3(1f, 0f, 0),
+                new Vector3(-1f, 0f, 0),
+                new Vector3(1f, .5f, 0),
+                new Vector3(-1f, .5f, 0),
+            });
 
-            GameObject sharpstakes = __instance.m_namedPrefabs["piece_sharpstakes".GetStableHashCode()];
-            CreateSnappoint(new Vector3(1.12f, 0f, 0), sharpstakes.transform);
-            CreateSnappoint(new Vector3(-1.12f, 0f, 0), sharpstakes.transform);
-        }
-
-        private static void CreateSnappoint(Vector3 pos, Transform parent) {
-            GameObject snappoint = new GameObject("_snappoint");
-            snappoint.transform.parent = parent;
-            snappoint.transform.localPosition = pos;
-            snappoint.tag = "snappoint";
+            SnappointHelper.AddSnappoints("piece_sharpstakes", new[] {
+                new Vector3(1.12f, 0f, 0),
+                new Vector3(-1.12f, 0f, 0),
+            });
         }
     }
 }

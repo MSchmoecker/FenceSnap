@@ -1,4 +1,6 @@
 ﻿using BepInEx;
+using BepInEx.Bootstrap;
+using FenceSnap.Patches;
 using HarmonyLib;
 
 namespace FenceSnap {
@@ -11,8 +13,13 @@ namespace FenceSnap {
         private Harmony harmony;
 
         private void Awake() {
+            Log.Init(Logger);
             harmony = new Harmony(ModGuid);
-            harmony.PatchAll();
+            harmony.PatchAll(typeof(ZNetPatch));
+
+            if (Chainloader.PluginInfos.ContainsKey("com.jotunn.jotunn")) {
+                harmony.PatchAll(typeof(JotunnPatch));
+            }
         }
     }
 }
