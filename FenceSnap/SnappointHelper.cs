@@ -1,13 +1,18 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace FenceSnap {
-    public class SnappointHelper {
-        public static void AddSnappoints(string name, Vector3[] points) {
+    public static class SnappointHelper {
+        public static void AddSnappoints(string name, bool fixPiece, IEnumerable<Vector3> points) {
             GameObject target = ZNetScene.instance.GetPrefab(name);
 
-            if (target == null) {
-                Log.LogInfo($"{name} not found. Cannot add snappoints");
+            if (!target) {
+                Log.LogWarning($"Prefab {name} not found. Cannot add snappoints");
                 return;
+            }
+
+            if (fixPiece) {
+                FixPiece(name);
             }
 
             foreach (Vector3 point in points) {
@@ -26,8 +31,8 @@ namespace FenceSnap {
         public static void FixPiece(string name) {
             GameObject target = ZNetScene.instance.GetPrefab(name);
 
-            if (target == null) {
-                Log.LogInfo($"{name} not found. Cannot add fix piece");
+            if (!target) {
+                Log.LogWarning($"Prefab {name} not found. Cannot fix piece");
                 return;
             }
 

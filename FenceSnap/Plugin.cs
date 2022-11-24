@@ -1,8 +1,7 @@
 ﻿using BepInEx;
-using BepInEx.Bootstrap;
 using BepInEx.Configuration;
-using FenceSnap.Patches;
 using HarmonyLib;
+using UnityEngine;
 
 namespace FenceSnap {
     [BepInPlugin(ModGuid, ModName, ModVersion)]
@@ -13,21 +12,58 @@ namespace FenceSnap {
 
         private Harmony harmony;
 
-        public static ConfigEntry<bool> patchJotunnMods;
         public static ConfigEntry<bool> patchOdinArchitect;
 
         private void Awake() {
             Log.Init(Logger);
 
-            patchJotunnMods = Config.Bind("Compatibility", "Jotunn", true, "Enable pathing for Jotunn mods. The patch alone does nothing, only disable it when an error occurs. Needs a restart");
-            patchOdinArchitect = Config.Bind("Compatibility", "Odin Architect", true, "Enables snapping for OdinArchtiect fences. Doesn't need to be disabled when OdinArchtiect is not present. Needs a restart");
+            patchOdinArchitect = Config.Bind("Compatibility", "Odin Architect", true, "Enables snapping for OdinArchitect fences. Does not need to be disabled when OdinArchitect is not installed. Needs a restart");
 
             harmony = new Harmony(ModGuid);
-            harmony.PatchAll(typeof(ZNetPatch));
+            harmony.PatchAll();
+        }
 
-            if (patchJotunnMods.Value && Chainloader.PluginInfos.ContainsKey("com.jotunn.jotunn")) {
-                harmony.PatchAll(typeof(JotunnPatch));
-            }
+        public static void AddVanillaSnappoints() {
+            SnappointHelper.AddSnappoints("wood_fence", false, new[] {
+                new Vector3(1f, 0f, 0),
+                new Vector3(-1f, 0f, 0),
+                new Vector3(1f, .5f, 0),
+                new Vector3(-1f, .5f, 0),
+            });
+
+            SnappointHelper.AddSnappoints("piece_sharpstakes", false, new[] {
+                new Vector3(1.12f, 0f, 0),
+                new Vector3(-1.12f, 0f, 0),
+            });
+        }
+
+        public static void AddOdinArchitectSnappoints() {
+            SnappointHelper.FixPiece("wooden_fence_1");
+
+            SnappointHelper.AddSnappoints("wooden_fence_1_gate", true, new[] {
+                new Vector3(-2.4f, 0f, 0f),
+                new Vector3(-2.4f, 1.17f, 0f),
+                new Vector3(0, 1.17f, 0f),
+            });
+
+            SnappointHelper.AddSnappoints("wooden_fence_2", true, new[] {
+                new Vector3(1.45f, 0f, 0),
+                new Vector3(-1.55f, 0f, 0),
+                new Vector3(1.45f, .75f, 0),
+                new Vector3(-1.55f, .75f, 0),
+            });
+
+            SnappointHelper.AddSnappoints("wooden_fence_2_gate", true, new[] {
+                new Vector3(-3f, 0f, 0),
+                new Vector3(0, 0f, 0),
+                new Vector3(-3f, .75f, 0),
+                new Vector3(0, .75f, 0),
+            });
+
+            SnappointHelper.AddSnappoints("refined_sharpstakes", false, new[] {
+                new Vector3(1.3f, 0f, 0.6f),
+                new Vector3(-1.3f, 0f, 0.6f),
+            });
         }
     }
 }
