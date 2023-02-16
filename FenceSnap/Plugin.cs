@@ -36,6 +36,13 @@ namespace FenceSnap {
                 new Vector3(1.12f, 0f, 0),
                 new Vector3(-1.12f, 0f, 0),
             });
+
+            SnappointHelper.AddSnappoints("piece_dvergr_sharpstakes", false, new[] {
+                new Vector3(-0.5f, 0f, 2f),
+                new Vector3(-0.5f, 0f, -2f),
+                new Vector3(1f, 1f, 2f),
+                new Vector3(1f, 1f, -2f),
+            });
         }
 
         public static void AddOdinArchitectSnappoints() {
