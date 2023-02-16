@@ -5,11 +5,10 @@ using UnityEngine;
 
 namespace FenceSnap {
     [BepInPlugin(ModGuid, ModName, ModVersion)]
-    [BepInProcess("valheim.exe")]
     public class Plugin : BaseUnityPlugin {
         public const string ModName = "FenceSnap";
         public const string ModGuid = "com.maxsch.valheim.FenceSnap";
-        public const string ModVersion = "0.1.1";
+        public const string ModVersion = "0.2.0";
 
         private Harmony harmony;
 
