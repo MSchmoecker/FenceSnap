@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace FenceSnap {
     public static class SnappointHelper {
-        public static void AddSnappoints(string name, bool fixPiece, IEnumerable<Vector3> points) {
+        public static void AddSnappoints(string name, bool fixPiece, bool fixZClipping, IEnumerable<Vector3> points) {
             GameObject target = ZNetScene.instance.GetPrefab(name);
 
             if (!target) {
@@ -15,8 +15,17 @@ namespace FenceSnap {
                 FixPiece(name);
             }
 
+            float z = 0f;
+
             foreach (Vector3 point in points) {
-                CreateSnappoint(point, target.transform);
+                Vector3 pos = point;
+
+                if (fixZClipping) {
+                    pos.z = z;
+                    z += 0.0001f;
+                }
+
+                CreateSnappoint(pos, target.transform);
             }
         }
 
