@@ -29,7 +29,12 @@ See [contributing](https://github.com/MSchmoecker/FenceSnap/blob/master/CONTRIBU
 - Github: https://github.com/MSchmoecker/FenceSnap
 - Discord: Margmas#9562. Feel free to DM or ping me, for example in the [Jötunn discord](https://discord.gg/DdUt6g7gyA)
 
+
 ## Changelog
+0.3.0
+- Added more snappoints for fences to allow easier placement on uneven terrain, also allows better stacking
+- Fixed OdinArchitect patch as the mod was no longer detected because the identifier GUID changed
+
 0.2.0
 - Added snappoints for Dvergr sharp stakes
 - Simplified internal patches

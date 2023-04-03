@@ -8,9 +8,7 @@ namespace FenceSnap {
     public class Plugin : BaseUnityPlugin {
         public const string ModName = "FenceSnap";
         public const string ModGuid = "com.maxsch.valheim.FenceSnap";
-        public const string ModVersion = "0.2.0";
-
-        private Harmony harmony;
+        public const string ModVersion = "0.3.0";
 
         public static ConfigEntry<bool> patchOdinArchitect;
 
@@ -19,7 +17,7 @@ namespace FenceSnap {
 
             patchOdinArchitect = Config.Bind("Compatibility", "Odin Architect", true, "Enables snapping for OdinArchitect fences. Does not need to be disabled when OdinArchitect is not installed. Needs a restart");
 
-            harmony = new Harmony(ModGuid);
+            Harmony harmony = new Harmony(ModGuid);
             harmony.PatchAll();
         }
 
